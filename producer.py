@@ -45,7 +45,7 @@ def main() -> None:
             for row in data:
                 print(row['title'])
                 source = row["source"]["name"]
-                publishedAt = datetime.strptime(row["publishedAt"], '%Y-%m-%d').strftime('%Y-%m-%d')
+                publishedAt = datetime.strptime(row["publishedAt"], '%Y-%m-%d')
                 article = {
                     'source': source,
                     'publishedAt': publishedAt,
