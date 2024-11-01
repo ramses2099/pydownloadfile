@@ -2,7 +2,10 @@ import os
 import sys
 import six
 
-from confluent_kafka import Consumer
+from kafka.consumer import KafkaConsumer
+
+if sys.version_info >= (3, 12, 0):
+    sys.modules['kafka.vendor.six.moves'] = six.moves
 
 
 ################################################################
@@ -12,41 +15,18 @@ from confluent_kafka import Consumer
 # Big Data integration and storage 
 ################################################################
 
+# Kafka consumer configuration
+topic = "topicnews"
+brokers = "localhost:9092"
 
 def main() -> None:
-    config = {
-        # User-specific properties that you must set
-        'bootstrap.servers': 'localhost:9092',
-        'group.id': 'console-consumer-group',
-    }
+    # Create the Kafka consumer
+    consumer = KafkaConsumer(topic, bootstrap_servers=brokers,group_id='console-consumer-group')
 
-    # Create Consumer instance
-    consumer = Consumer(config)
+    # Continuously poll for new messages
+    for message in consumer:
+        print(message.value.decode())
 
-    # Subscribe to topic
-    topic = "topicnews"
-    consumer.subscribe([topic])
-
-    # Poll for new messages from Kafka and print them.
-    try:
-        while True:
-            msg = consumer.poll(1.0)
-            if msg is None:
-                # Initial message consumption may take up to
-                # `session.timeout.ms` for the consumer group to
-                # rebalance and start consuming
-                print("Waiting...")
-            elif msg.error():
-                print("ERROR: %s".format(msg.error()))
-            else:
-                # Extract the (optional) key and value, and print.
-                print("Consumed event from topic {topic}: key = {key:12} value = {value:12}".format(
-                    topic=msg.topic(), key=msg.key().decode('utf-8'), value=msg.value().decode('utf-8')))
-    except KeyboardInterrupt:
-        pass
-    finally:
-        # Leave group and commit final offsets
-        consumer.close()
 
 if __name__ == '__main__':
     main()
