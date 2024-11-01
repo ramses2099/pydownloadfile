@@ -17,17 +17,16 @@ if sys.version_info >= (3, 12, 0):
 ################################################################
 
 
-load_dotenv()
-
-API_KEY = os.getenv('API_KEY')
-TOPIC_NAME = os.getenv('TOPIC_NAME')
+topic="topicnews"
 brokers = "localhost:9092"
 
 def main() -> None:
-    consumer = KafkaConsumer(TOPIC_NAME, bootstrap_servers=brokers)
-    for message in consumer:
-        values = message.value
-        print(f'{values}')
+    consumer = KafkaConsumer(topic, bootstrap_servers=brokers)
+    print(f"consumer total message count {len(consumer)}")
+    if consumer:
+        for message in consumer:
+            values = message.value
+            print(f'{values}')
 
 if __name__ == '__main__':
     main()
