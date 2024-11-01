@@ -22,7 +22,7 @@ brokers = "localhost:9092"
 
 def main() -> None:
     consumer = KafkaConsumer(topic, bootstrap_servers=brokers)
-    print(f"consumer total message count {len(consumer)}")
+    print("Starting consumer...")
     if consumer:
         for message in consumer:
             values = message.value
