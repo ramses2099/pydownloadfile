@@ -21,7 +21,8 @@ brokers = "localhost:9092"
 
 def main() -> None:
     # Create the Kafka consumer
-    consumer = KafkaConsumer(topic, bootstrap_servers=brokers,group_id='console-consumer-group')
+    consumer = KafkaConsumer(topic, bootstrap_servers=brokers,group_id='console-consumer-group',
+                             auto_offset_reset='latest', enable_auto_commit=False)
 
     # Continuously poll for new messages
     for message in consumer:
