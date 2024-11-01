@@ -17,6 +17,7 @@ def main() -> None:
     config = {
         # User-specific properties that you must set
         'bootstrap.servers': 'localhost:9092',
+        'group.id': 'console-consumer-group',
     }
 
     # Create Consumer instance
