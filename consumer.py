@@ -21,9 +21,10 @@ load_dotenv()
 
 API_KEY = os.getenv('API_KEY')
 TOPIC_NAME = os.getenv('TOPIC_NAME')
+BROKER= os.getenv('BROKER')
 
 def main() -> None:
-    consumer = KafkaConsumer(consumer)
+    consumer = KafkaConsumer(TOPIC_NAME, bootstrap_servers=BROKER)
     for message in consumer:
         values = message.value
         print(f'{values}')
