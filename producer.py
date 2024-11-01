@@ -56,7 +56,8 @@ def main() -> None:
                 }
                 
                 # Send the article to Kafka                    
-                producer.send(TOPIC_NAME, json.dumps(article).encode('utf-8'))                
+                producer.send(TOPIC_NAME, json.dumps(article).encode('utf-8'))
+                producer.flush()                
         
     else:
         print(f'Error: {response["message"]}')
