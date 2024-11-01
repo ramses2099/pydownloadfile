@@ -26,10 +26,11 @@ def main() -> None:
                              auto_offset_reset='earliest',
                              enable_auto_commit=False,
                              value_deserializer=lambda m: json.loads(m.decode('utf-8')))
-    print(consumer.value)
+    
     # Continuously poll for new messages
     for message in consumer:
-        print(message.value)
+        print("topic: %s" % message.topic)
+        print(f"m {message.value}")
 
 
 if __name__ == '__main__':
