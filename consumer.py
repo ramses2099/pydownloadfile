@@ -1,6 +1,7 @@
 import os
 import sys
 import six
+import json
 
 from kafka.consumer import KafkaConsumer
 
@@ -21,11 +22,14 @@ brokers = "localhost:9092"
 
 def main() -> None:
     # Create the Kafka consumer
-    consumer = KafkaConsumer(topic, auto_offset_reset='earliest',enable_auto_commit=False)
-    print(consumer)
+    consumer = KafkaConsumer(topic, 
+                             auto_offset_reset='earliest',
+                             enable_auto_commit=False,
+                             value_deserializer=lambda m: json.loads(m.decode('utf-8')))
+    print(consumer.value)
     # Continuously poll for new messages
     for message in consumer:
-        print(message.value.decode())
+        print(message.value)
 
 
 if __name__ == '__main__':
