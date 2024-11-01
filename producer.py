@@ -45,10 +45,10 @@ def main() -> None:
             for row in data:
                 print(row['title'])
                 source = row["source"]["name"]
-                publishedAt = datetime.strptime(row["publishedAt"], '%Y-%m-%d')
+                publishedAt = datetime.strptime(row["publishedAt"], '%Y-%m-%dT%H:%M:%SZ')
                 article = {
                     'source': source,
-                    'publishedAt': publishedAt,
+                    'publishedAt': publishedAt.strftime('%Y-%m-%d'),
                     'author': row['author'],
                     'title': row['title'],
                     'description': row['description'].replace('\n', ' ').replace('\r', ''),
