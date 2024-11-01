@@ -21,7 +21,7 @@ topic="topicnews"
 brokers = "localhost:9092"
 
 def main() -> None:
-    consumer = KafkaConsumer(topic, bootstrap_servers=brokers)
+    consumer = KafkaConsumer(topic)
     print("Starting consumer...")
     if consumer:
         for message in consumer:
