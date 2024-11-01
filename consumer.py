@@ -24,9 +24,9 @@ def main() -> None:
     consumer = KafkaConsumer(topic)
     print("Starting consumer...")
     if consumer:
-        for message in consumer:
-            values = message.value
-            print(f'{values}')
+        print("Consumer is running...")
+        for message in consumer:            
+            print(f'{message}')
 
 if __name__ == '__main__':
     main()
