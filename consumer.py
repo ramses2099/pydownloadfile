@@ -35,9 +35,10 @@ def main() -> None:
             f.write(columns)
             # Continuously poll for new messages
             for message in consumer:
-                data = message.value            
-                line = f"{data['source']},{data['publishedAt']},{data['author']},{data['title']},{data['description']},{data['content']}\n"
-                f.write(line)
+                data = message.value 
+                if data['source'] != "[Removed]":          
+                    line = f"{data['source']},{data['publishedAt']},{data['author']},{data['title']},{data['description']},{data['content']}\n"
+                    f.write(line)
     except KeyboardInterrupt:
         pass
     finally:
