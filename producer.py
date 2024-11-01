@@ -51,8 +51,8 @@ def main() -> None:
                     'publishedAt': publishedAt,
                     'author': row['author'],
                     'title': row['title'],
-                    'description': row['description'],
-                    'content': row['content']  
+                    'description': row['description'].replace('\n', ' ').replace('\r', ''),
+                    'content': row['content'].replace('\n', ' ').replace('\r', '')  
                 }
                 
                 # Send the article to Kafka                    
